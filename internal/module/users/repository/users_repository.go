@@ -9,6 +9,7 @@ import (
 type UsersRepository interface {
 	InsertRole(role model.Role)(int64,error)
 	InsertRoleSalary(roleId int,roleSalary model.RoleSalary)(int64,error)
+	InsertUser(employeeId int,user model.User)(int64,error)
 }
 
 type usersRepository struct {
@@ -50,4 +51,16 @@ func(r *usersRepository)InsertRoleSalary(roleId int,roleSalary model.RoleSalary)
 	return id,nil
 }
 
-
+func(r *usersRepository)InsertUser(EmployeeID int,user model.User)(int64,error){
+	query := `INSERT INTO users (employee_id,password)
+				VALUES(?,?)`
+	result,err := r.db.Exec(query,EmployeeID,user.Password)
+	if err != nil {
+		return 0,nil
+	}
+	id,err := result.LastInsertId()
+	if err != nil {
+		return 0,err
+	}
+	return id,nil
+}

@@ -13,3 +13,12 @@ type UpdateRoleRequest struct {
 	Scope       string `json:"scope"`
 	Description string `json:"description"`
 }
+
+type RoleSalaryRequest struct {
+	RoleID     int     `json:"role_id"`
+	BaseSalary float64 `json:"base_salary"`
+}
+
+type User struct {
+	Password   string    
+}
